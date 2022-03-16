@@ -15,7 +15,7 @@ class InfoProductList(APIView):
 class InfoProductDetail(APIView):
     def get_object(self, tig_id):
         try:
-            return InfoProduct.objects.get(id=id)
+            return InfoProduct.objects.get(tig_id=tig_id)
         except InfoProduct.DoesNotExist:
             raise Http404
     def get(self, request, tig_id, format=None):
@@ -32,12 +32,13 @@ class PutOnSale(APIView):
 
     def get(self, request, tig_id, newprice, format=None):
         product = self.get_object(tig_id=tig_id)
-        serializer = InfoProductSerializer(product, data={ 'discount': newprice,
-                                                            'sale': True })
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
+        product.sale = True
+        product.discount = newprice
+        product.save()
+
+        serializer = InfoProductSerializer(product)
         return Response(serializer.data)
+
 
 class RemoveOnSale(APIView):
     def get_object(self, tig_id):
@@ -48,11 +49,13 @@ class RemoveOnSale(APIView):
 
     def get(self, request, tig_id, format=None):
         product = self.get_object(tig_id=tig_id)
-        serializer = InfoProductSerializer(product, data={ 'sale': False })
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
+        product.sale = False
+        product.discount = 0
+        product.save()
+
+        serializer = InfoProductSerializer(product)
         return Response(serializer.data)
+
 
 class IncrementStock(APIView):
     def get_object(self, tig_id):
@@ -63,34 +66,11 @@ class IncrementStock(APIView):
 
     def get(self, request, tig_id, number, format=None):
         product = self.get_object(tig_id=tig_id)
-        serializer = InfoProductSerializer(product, data={'quantityInStock': product.quantityInStock+number})
-        if serializer.is_valid():
-            serializer.save()
-            if serializer.data['quantityInStock'] > 16 and serializer.data['quantityInStock'] < 64:
-                serializer = InfoProductSerializer(product, data={  'discount': round(product.price*0.8, 2),
-                                                                    'sale': True,
-                                                                    'percentage_reduc': 20})
-                if serializer.is_valid(): 
-                    serializer.save()
-                    return Response(serializer.data)
-            
-            elif serializer.data['quantityInStock'] > 64:
-                serializer = InfoProductSerializer(product, data={  'discount': round(product.price*0.5, 2),
-                                                                    'sale': True,
-                                                                    'percentage_reduc': 50})
-                if serializer.is_valid(): 
-                    serializer.save()
-                    return Response(serializer.data)
-            
-            else: 
-                serializer = InfoProductSerializer(product, data={  'discount': 0,
-                                                                    'sale': False,
-                                                                    'percentage_reduc': 0})
-                if serializer.is_valid(): 
-                    serializer.save()
-                    return Response(serializer.data)
-            
-            return Response(serializer.data)
+        product.quantityInStock += number
+        product.save()
+        
+        serializer = InfoProductSerializer(product)
+        return Response(serializer.data)
 
 class DecrementStock(APIView):
     def get_object(self, tig_id):
@@ -101,33 +81,14 @@ class DecrementStock(APIView):
 
     def get(self, request, tig_id, number, format=None):
         product = self.get_object(tig_id=tig_id)
-        serializer = InfoProductSerializer(product, data={'quantityInStock': product.quantityInStock-number})
-        if serializer.is_valid():
-            serializer.save()
-            if serializer.data['quantityInStock'] > 16 and serializer.data['quantityInStock'] < 64:
-                serializer = InfoProductSerializer(product, data={  'discount': round(product.price*0.8, 2),
-                                                                    'sale': True,
-                                                                    'percentage_reduc': 20})
-                if serializer.is_valid(): 
-                    serializer.save()
-                    return Response(serializer.data)
+        product.quantityInStock -= number
+        
+        if product.quantityInStock < 0:
+            product.quantityInStock = 0
             
-            elif serializer.data['quantityInStock'] > 64:
-                serializer = InfoProductSerializer(product, data={  'discount': round(product.price*0.5, 2),
-                                                                    'sale': True,
-                                                                    'percentage_reduc': 50})
-                if serializer.is_valid(): 
-                    serializer.save()
-                    return Response(serializer.data)
-            
-            else: 
-                serializer = InfoProductSerializer(product, data={  'discount': 0,
-                                                                    'sale': False,
-                                                                    'percentage_reduc': 0})
-                if serializer.is_valid(): 
-                    serializer.save()
-                    return Response(serializer.data)
-            
-            return Response(serializer.data)
+        product.save()
+
+        serializer = InfoProductSerializer(product)
+        return Response(serializer.data)
 
             
