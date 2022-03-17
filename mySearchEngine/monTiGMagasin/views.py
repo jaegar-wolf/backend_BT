@@ -93,4 +93,79 @@ class DecrementStock(APIView):
         serializer = InfoProductSerializer(product)
         return Response(serializer.data)
 
-            
+    
+class IncrementAndReturnStock(APIView):
+    def get_object(self, tig_id):
+        try:
+            return InfoProduct.objects.get(tig_id=tig_id)
+        except InfoProduct.DoesNotExist:
+            raise Http404
+
+    def get(self, request, tig_id, number, format=None):
+        product = self.get_object(tig_id=tig_id)
+        product.quantityInStock += number
+        product.save()
+
+        products = InfoProduct.objects.all()
+        
+        serializer = InfoProductSerializer(products, many=True)
+        return Response(serializer.data)
+
+class DecrementAndReturnStock(APIView):
+    def get_object(self, tig_id):
+        try:
+            return InfoProduct.objects.get(tig_id=tig_id)
+        except InfoProduct.DoesNotExist:
+            raise Http404
+
+    def get(self, request, tig_id, number, format=None):
+        product = self.get_object(tig_id=tig_id)
+        product.quantityInStock -= number
+
+        if product.quantityInStock < 0:
+            product.quantityInStock = 0
+
+        product.save()
+
+        products = InfoProduct.objects.all()
+        
+        serializer = InfoProductSerializer(products, many=True)
+        return Response(serializer.data)
+
+class PutOnSaleAndReturn(APIView):
+    def get_object(self, tig_id):
+        try:
+            return InfoProduct.objects.get(tig_id=tig_id)
+        except InfoProduct.DoesNotExist:
+            raise Http404
+
+    def get(self, request, tig_id, newpromo, format=None):
+        product = self.get_object(tig_id=tig_id)
+        product.sale = True
+        product.percentage_reduc = newpromo
+        product.discount = round(product.price * (1 - product.percentage_reduc / 100), 2)
+        product.save()
+
+        products = InfoProduct.objects.all()
+        
+        serializer = InfoProductSerializer(products, many=True)
+        return Response(serializer.data)
+
+class RemoveOnSaleAndReturn(APIView):
+    def get_object(self, tig_id):
+        try:
+            return InfoProduct.objects.get(tig_id=tig_id)
+        except InfoProduct.DoesNotExist:
+            raise Http404
+
+    def get(self, request, tig_id, format=None):
+        product = self.get_object(tig_id=tig_id)
+        product.sale = False
+        product.percentage_reduc = 0
+        product.discount = 0
+        product.save()
+
+        products = InfoProduct.objects.all()
+        
+        serializer = InfoProductSerializer(products, many=True)
+        return Response(serializer.data)

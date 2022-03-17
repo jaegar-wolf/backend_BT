@@ -21,4 +21,8 @@ urlpatterns = [
     path('removesale/<int:tig_id>/', views.RemoveOnSale.as_view()),
     path('incrementStock/<int:tig_id>/<int:number>/', views.IncrementStock.as_view()),
     path('decrementStock/<int:tig_id>/<int:number>/', views.DecrementStock.as_view()),
+    path('incrementForStock/<int:tig_id>/<int:number>/', views.IncrementAndReturnStock.as_view()),
+    path('decrementForStock/<int:tig_id>/<int:number>/', views.DecrementAndReturnStock.as_view()),
+    path('putonsaleForStock/<int:tig_id>/<float:newpromo>/', views.PutOnSaleAndReturn.as_view()),
+    path('removesaleForStock/<int:tig_id>/', views.RemoveOnSaleAndReturn.as_view()),
 ]
