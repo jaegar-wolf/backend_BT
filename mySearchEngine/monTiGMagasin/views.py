@@ -30,10 +30,11 @@ class PutOnSale(APIView):
         except InfoProduct.DoesNotExist:
             raise Http404
 
-    def get(self, request, tig_id, newprice, format=None):
+    def get(self, request, tig_id, newpromo, format=None):
         product = self.get_object(tig_id=tig_id)
         product.sale = True
-        product.discount = newprice
+        product.percentage_reduc = newpromo
+        product.discount = round(product.price * (1 - product.percentage_reduc / 100), 2)
         product.save()
 
         serializer = InfoProductSerializer(product)
@@ -50,6 +51,7 @@ class RemoveOnSale(APIView):
     def get(self, request, tig_id, format=None):
         product = self.get_object(tig_id=tig_id)
         product.sale = False
+        product.percentage_reduc = 0
         product.discount = 0
         product.save()
 
@@ -85,7 +87,7 @@ class DecrementStock(APIView):
         
         if product.quantityInStock < 0:
             product.quantityInStock = 0
-            
+
         product.save()
 
         serializer = InfoProductSerializer(product)
