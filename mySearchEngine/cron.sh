@@ -1,2 +1,2 @@
-source ../env/bin/activate
+source ../../Django_Tuto/env/bin/activate
 python manage.py refreshProductOnSale >> sales_update.log
