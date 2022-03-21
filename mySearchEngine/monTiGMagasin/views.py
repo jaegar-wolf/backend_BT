@@ -2,8 +2,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.http import Http404
 from monTiGMagasin.config import baseUrl
-from monTiGMagasin.models import InfoProduct
-from monTiGMagasin.serializers import InfoProductSerializer
+from monTiGMagasin.models import InfoProduct, DonneeHisto
+from monTiGMagasin.serializers import InfoProductSerializer, DonneeHistoSerializer
+from rest_framework import status
 
 # Create your views here.
 class InfoProductList(APIView):
@@ -169,3 +170,39 @@ class RemoveOnSaleAndReturn(APIView):
         
         serializer = InfoProductSerializer(products, many=True)
         return Response(serializer.data)
+
+
+class ListTransaction(APIView):
+    def get(self, request, format=None):
+        donnees = DonneeHisto.objects.all()
+        serializer = DonneeHistoSerializer(donnees, many=True)
+        return Response(serializer.data)
+
+class DetailTransaction(APIView):
+    def get_object(self, id):
+        try:
+            return DonneeHisto.objects.get(id=id)
+        except DonneeHisto.DoesNotExist:
+            raise Http404
+    def get(self, request, id, format=None):
+        transa = self.get_object(id)
+        serializer = DonneeHistoSerializer(transa)
+        return Response(serializer.data)
+    
+    def delete(self, request, id, format=None):
+        snippet = self.get_object(id)
+        snippet.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+class AddTransaction(APIView):
+    def get(self, request, nom, type, prixT, quantité, category, format=None):
+        serializer = DonneeHistoSerializer(data={
+                                                     'nameProd': nom,
+                                                     'typeT': type,
+                                                     'valeurT': prixT,
+                                                     'quantityT': quantité,
+                                                     'category': category
+                                                })
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)

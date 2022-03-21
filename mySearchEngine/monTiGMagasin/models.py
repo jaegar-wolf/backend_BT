@@ -19,3 +19,14 @@ class InfoProduct(models.Model):
 
     class Meta:
         ordering = ('name',)
+
+class DonneeHisto(models.Model):
+    nameProd = models.CharField(max_length=100, blank=True, default='')
+    category = models.IntegerField(default='-1')
+    quantityT = models.IntegerField(default='0')
+    dateT = models.DateField(auto_now_add=True)
+    typeT = models.CharField(max_length=100, blank=True, default='')
+    valeurT = models.FloatField(default='0')
+
+    class Meta:
+        ordering = ('dateT',)
