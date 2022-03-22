@@ -20,12 +20,12 @@ urlpatterns = [
     path('putonsale/<int:tig_id>/<float:newpromo>/', views.PutOnSale.as_view()),
     path('removesale/<int:tig_id>/', views.RemoveOnSale.as_view()),
     path('incrementStock/<int:tig_id>/<int:number>/', views.IncrementStock.as_view()),
-    path('decrementStock/<int:tig_id>/<int:number>/', views.DecrementStock.as_view()),
+    path('decrementStock/<int:tig_id>/<int:number>/<int:vente>/', views.DecrementStock.as_view()),
     path('incrementForStock/<int:tig_id>/<int:number>/', views.IncrementAndReturnStock.as_view()),
-    path('decrementForStock/<int:tig_id>/<int:number>/', views.DecrementAndReturnStock.as_view()),
+    path('decrementForStock/<int:tig_id>/<int:number>/<int:vente>/', views.DecrementAndReturnStock.as_view()),
     path('putonsaleForStock/<int:tig_id>/<float:newpromo>/', views.PutOnSaleAndReturn.as_view()),
     path('removesaleForStock/<int:tig_id>/', views.RemoveOnSaleAndReturn.as_view()),
     path('donneesHisto/', views.ListTransaction.as_view()),
-    path('detailHisto/<int:id>', views.DetailTransaction.as_view()),
-    path('addTransaction/<str:nom>/<str:type>/<float:prixT>/<int:quantité>/<int:category>', views.AddTransaction.as_view())
+    path('detailHisto/<int:id>/', views.DetailTransaction.as_view()),
+    path('addTransaction/<str:nom>/<str:type>/<float:prixT>/<int:quantité>/<int:category>/<int:id>/', views.AddTransaction.as_view())
 ]

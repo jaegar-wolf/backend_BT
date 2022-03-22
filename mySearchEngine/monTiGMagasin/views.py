@@ -82,10 +82,12 @@ class DecrementStock(APIView):
         except InfoProduct.DoesNotExist:
             raise Http404
 
-    def get(self, request, tig_id, number, format=None):
+    def get(self, request, tig_id, number, vente, format=None):
         product = self.get_object(tig_id=tig_id)
         product.quantityInStock -= number
-        
+        if vente == 1:
+            product.quantitySold += number
+
         if product.quantityInStock < 0:
             product.quantityInStock = 0
 
@@ -119,12 +121,19 @@ class DecrementAndReturnStock(APIView):
         except InfoProduct.DoesNotExist:
             raise Http404
 
-    def get(self, request, tig_id, number, format=None):
+    def get(self, request, tig_id, number, vente, format=None):
         product = self.get_object(tig_id=tig_id)
-        product.quantityInStock -= number
+        if product.quantityInStock - number < 0:
+            products = InfoProduct.objects.all()
+            serializer = InfoProductSerializer(products, many=True)
+            return Response(serializer.data)
 
+        product.quantityInStock -= number
         if product.quantityInStock < 0:
             product.quantityInStock = 0
+        
+        if vente == 1:
+            product.quantitySold += number
 
         product.save()
 
@@ -195,7 +204,11 @@ class DetailTransaction(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 class AddTransaction(APIView):
-    def get(self, request, nom, type, prixT, quantité, category, format=None):
+    def get(self, request, nom, type, prixT, quantité, category, id, format=None):
+        product = InfoProduct.objects.get(tig_id=id)
+        if product.quantityInStock == 0:
+            prixT = 0
+            quantité = 0
         serializer = DonneeHistoSerializer(data={
                                                      'nameProd': nom,
                                                      'typeT': type,
