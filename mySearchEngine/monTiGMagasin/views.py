@@ -207,8 +207,7 @@ class AddTransaction(APIView):
     def get(self, request, nom, type, prixT, quantité, category, id, format=None):
         product = InfoProduct.objects.get(tig_id=id)
         if product.quantityInStock == 0:
-            prixT = 0
-            quantité = 0
+            return Response(status=status.HTTP_204_NO_CONTENT)
         serializer = DonneeHistoSerializer(data={
                                                      'nameProd': nom,
                                                      'typeT': type,
