@@ -1,0 +1,10 @@
+{
+    "backend_BT_YMK": {
+        "aws_region": "eu-west-3",
+        "django_settings": "mySearchEngine.settings",
+        "profile_name": "default",
+        "project_name": "mysearchengine",
+        "runtime": "python3.9",
+        "s3_bucket": "zappa-jbr1s41kv"
+    }
+}

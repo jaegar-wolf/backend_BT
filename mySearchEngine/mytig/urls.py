@@ -3,7 +3,6 @@ from mytig import views
 from django.views.generic.base import RedirectView
 
 urlpatterns = [
-    path('', views.RedirectionListeDeProduits.as_view(), name='projectRoot'),
     path('products/', views.RedirectionListeDeProduits.as_view(), name='mytigProducts'),
     path('product/<int:pk>/', views.RedirectionDetailProduit.as_view()),
 ###################

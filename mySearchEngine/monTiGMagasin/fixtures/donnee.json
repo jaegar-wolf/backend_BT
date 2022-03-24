@@ -1,0 +1,332 @@
+[
+    {
+        "model": "monTiGMagasin.InfoProduct",
+        "pk": 1,
+        "fields": {
+            "created": "2022-03-24 12:17:37.62947+01",
+            "tig_id": 12,
+            "name": "Aile de raie",
+            "category": 0,
+            "price": 10,
+            "unit": "kg",
+            "availability": true,
+            "sale": false ,
+            "discount": 0,
+            "comments": "Pêche à la corde",
+            "owner": "tig",
+            "quantityInStock": 100,
+            "percentage_reduc": 0,
+            "quantitySold": 0
+
+      }
+    },
+    {
+        "model": "monTiGMagasin.InfoProduct",
+        "pk": 2,
+        "fields": {
+            "created":"2022-03-24 12:17:37.632545+01",
+            "tig_id": 9,
+            "name": "Araignées",
+            "category": 2,
+            "price": 7,
+            "unit": "kg",
+            "availability": false,
+            "sale": false ,
+            "discount": 0,
+            "comments": "Hors saison,  pêche aux casiers",
+            "owner": "tig",
+            "quantityInStock": 100,
+            "percentage_reduc": 0,
+            "quantitySold": 0
+  
+        }
+    },
+    {
+        "model": "monTiGMagasin.InfoProduct",
+        "pk": 3,
+        "fields": {
+            "created": "2022-03-24 12:17:37.634233+01",
+            "tig_id": 3,
+            "name": "Bar de ligne",
+            "category": 0,
+            "price": 30,
+            "unit": "kg",
+            "availability": true,
+            "sale": false ,
+            "discount": 0,
+            "comments": "Environ 550-700g la pièce",
+            "owner": "tig",
+            "quantityInStock": 100,
+            "percentage_reduc": 0,
+            "quantitySold": 0
+  
+        }
+    },
+    {
+        "model": "monTiGMagasin.InfoProduct",
+        "pk": 4,
+        "fields": {
+            "created": "2022-03-24 12:17:37.637095+01",
+            "tig_id": 2,
+            "name": "Bar de ligne portion",
+            "category": 0,
+            "price": 10,
+            "unit": "pièce",
+            "availability": true,
+            "sale": false ,
+            "discount": 0,
+            "comments": "Environ 550-700g la pièce",
+            "owner": "tig",
+            "quantityInStock": 100,
+            "percentage_reduc": 0,
+            "quantitySold": 6
+  
+        }
+    },
+    {
+        "model": "monTiGMagasin.InfoProduct",
+        "pk": 5,
+        "fields": {
+            "created": "2022-03-24 12:17:37.63914+01",
+            "tig_id": 10,
+            "name": "Bouquets cuits",
+            "category": 1,
+            "price": 8,
+            "unit": "100g",
+            "availability": false,
+            "sale": false ,
+            "discount": 0,
+            "comments": "Hors saison, pêche à l'épuisette",
+            "owner": "tig",
+            "quantityInStock": 100,
+            "percentage_reduc": 0,
+            "quantitySold": 0
+  
+        }
+    },
+    {
+        "model": "monTiGMagasin.InfoProduct",
+        "pk": 6,
+        "fields": {
+            "created": "2022-03-24 12:17:37.641169+01",
+            "tig_id": 1,
+            "name": "Filet Bar de ligne",
+            "category": 0,
+            "price": 7,
+            "unit": "2 filets",
+            "availability": true,
+            "sale": true ,
+            "discount": 6.3,
+            "comments": "environ 300g",
+            "owner": "tig",
+            "quantityInStock": 110,
+            "percentage_reduc": 10,
+            "quantitySold": 13
+  
+        }
+    },
+    {
+        "model": "monTiGMagasin.InfoProduct",
+        "pk": 7,
+        "fields": {
+            "created": "2022-03-24 12:17:37.642757+01", 
+            "tig_id": 5,
+            "name": "Filet Julienne",
+            "category": 0,
+            "price": 19,
+            "unit": "kg",
+            "availability": false,
+            "sale": false ,
+            "discount": 6.3,
+            "comments": "Pêche à la corde",
+            "owner": "tig",
+            "quantityInStock": 100,
+            "percentage_reduc": 0,
+            "quantitySold": 10
+  
+        }
+    },
+    {
+        "model": "monTiGMagasin.InfoProduct",
+        "pk": 8,
+        "fields": {
+            "created": "2022-03-24 12:17:37.644389+01",
+            "tig_id": 7,
+            "name": "Huitres N°2 St Vaast",
+            "category": 1,
+            "price": 9.5,
+            "unit": "Dz",
+            "availability": true,
+            "sale": false ,
+            "discount": 0,
+            "comments": "",
+            "owner": "tig",
+            "quantityInStock": 100,
+            "percentage_reduc": 0,
+            "quantitySold": 0
+  
+        }
+    },
+    {
+        "model": "monTiGMagasin.InfoProduct",
+        "pk": 9,
+        "fields": {
+            "created":"2022-03-24 12:17:37.646305+01",
+            "tig_id": 8,
+            "name": "Huitres N°2 St Vaast",
+            "category": 1,
+            "price": 38,
+            "unit": "Dz",
+            "availability": true,
+            "sale": false ,
+            "discount": 0,
+            "comments": "",
+            "owner": "tig",
+            "quantityInStock": 100,
+            "percentage_reduc": 0,
+            "quantitySold": 0
+  
+        }
+    },
+    {
+        "model": "monTiGMagasin.InfoProduct",
+        "pk": 10,
+        "fields": {
+            "created": "2022-03-24 12:17:37.648292+01",
+            "tig_id": 13,
+            "name": "Huîtres N°2 OR St Vaast",
+            "category": 1,
+            "price": 12,
+            "unit": "Dz",
+            "availability": true,
+            "sale": false ,
+            "discount": 0,
+            "comments": "Médaille d'or Salon Agriculture",
+            "owner": "tig",
+            "quantityInStock": 100,
+            "percentage_reduc": 0,
+            "quantitySold": 0
+  
+        }
+    },
+    {
+        "model": "monTiGMagasin.InfoProduct",
+        "pk": 11,
+        "fields": {
+            "created":"2022-03-24 12:17:37.650048+01",
+            "tig_id": 14,
+            "name": "Huîtres N°2 OR St Vaast",
+            "category": 1,
+            "price": 24,
+            "unit": "2 Dz",
+            "availability": true,
+            "sale": false ,
+            "discount": 0,
+            "comments": "Médaille d'or Salon Agriculture",
+            "owner": "tig",
+            "quantityInStock": 100,
+            "percentage_reduc": 0,
+            "quantitySold": 0
+  
+        }
+    },
+    {
+        "model": "monTiGMagasin.InfoProduct",
+        "pk": 12,
+        "fields": {
+            "created": "2022-03-24 12:17:37.651805+01",
+            "tig_id": 15,
+            "name": "Huîtres N°2 OR St Vaast",
+            "category": 1,
+            "price": 48,
+            "unit": "4 Dz",
+            "availability": true,
+            "sale": false ,
+            "discount": 0,
+            "comments": "Médaille d'or Salon Agriculture",
+            "owner": "tig",
+            "quantityInStock": 100,
+            "percentage_reduc": 0,
+            "quantitySold": 0
+  
+        }
+    },
+    {
+        "model": "monTiGMagasin.InfoProduct",
+        "pk": 13,
+        "fields": {
+            "created":"2022-03-24 12:17:37.653383+01",
+            "tig_id": 16,
+            "name": "Huîtres N°2 St Vaast",
+            "category": 1,
+            "price": 19,
+            "unit": "2 Dz",
+            "availability": true,
+            "sale": false ,
+            "discount": 0,
+            "comments": "",
+            "owner": "tig",
+            "quantityInStock": 100,
+            "percentage_reduc": 0,
+            "quantitySold": 0
+  
+        }
+    },
+    {
+        "model": "monTiGMagasin.InfoProduct",
+        "pk": 14,
+        "fields": {
+            "created":"2022-03-24 12:17:37.655083+01",
+            "tig_id": 4,
+            "name": "Lieu jaune de ligne",
+            "category": 0,
+            "price": 12,
+            "unit": "kg",
+            "availability": true,
+            "sale": true ,
+            "discount": 10.44,
+            "comments": "Environ 550-700g la portion",
+            "owner": "tig",
+            "quantityInStock": 100,
+            "percentage_reduc": 13,
+            "quantitySold": 0
+  
+        }
+    },
+    {
+        "model": "monTiGMagasin.InfoProduct",
+        "pk": 15,
+        "fields": {
+            "created":"2022-03-24 12:17:37.656952+01",
+            "tig_id": 6,
+            "name": "Moules de pêche",
+            "category": 1,
+            "price": 7,
+            "unit": "kg",
+            "availability": true,
+            "sale": false ,
+            "discount": 5,
+            "comments": "",
+            "owner": "tig",
+            "quantityInStock": 100,
+            "percentage_reduc": 0,
+            "quantitySold": 0
+  
+        }
+    }
+
+  ]
+
+
+
+
+
+
+
+
+
+
+
+
+
+

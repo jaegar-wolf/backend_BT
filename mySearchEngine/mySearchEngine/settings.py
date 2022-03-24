@@ -25,7 +25,7 @@ SECRET_KEY = 'f%t0&fy4df2@#z@@&2g&rcu=@g27=h90=zr#hwyxz5w*3s)w9i'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://16fcwr67g9.execute-api.eu-west-3.amazonaws.com/backend_BT_YMK', '16fcwr67g9.execute-api.eu-west-3.amazonaws.com']
 
 
 # Application definition
@@ -87,11 +87,25 @@ WSGI_APPLICATION = 'mySearchEngine.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
+"""
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'Bateu_Thibault',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+        'USER': 'postgres',
+    }
+}
+"""
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'postgres',
+        'HOST': 'database-ymk.calureisqwzb.eu-west-3.rds.amazonaws.com',
+        'PORT': '5432',
+        'USER': 'postgres',
+        'PASSWORD': 'bSp8T7DGaHIKQlslfi6K',
     }
 }
 

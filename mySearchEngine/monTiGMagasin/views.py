@@ -24,79 +24,14 @@ class InfoProductDetail(APIView):
         serializer = InfoProductSerializer(product)
         return Response(serializer.data)
 
-class PutOnSale(APIView):
-    def get_object(self, tig_id):
-        try:
-            return InfoProduct.objects.get(tig_id=tig_id)
-        except InfoProduct.DoesNotExist:
-            raise Http404
+    def put(self, request, tig_id, format=None):
+        product = self.get_object(tig_id==tig_id)
+        serializer = InfoProductSerializer(product, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def get(self, request, tig_id, newpromo, format=None):
-        product = self.get_object(tig_id=tig_id)
-        product.sale = True
-        product.percentage_reduc = newpromo
-        product.discount = round(product.price * (1 - product.percentage_reduc / 100), 2)
-        product.save()
-
-        serializer = InfoProductSerializer(product)
-        return Response(serializer.data)
-
-
-class RemoveOnSale(APIView):
-    def get_object(self, tig_id):
-        try:
-            return InfoProduct.objects.get(tig_id=tig_id)
-        except InfoProduct.DoesNotExist:
-            raise Http404
-
-    def get(self, request, tig_id, format=None):
-        product = self.get_object(tig_id=tig_id)
-        product.sale = False
-        product.percentage_reduc = 0
-        product.discount = 0
-        product.save()
-
-        serializer = InfoProductSerializer(product)
-        return Response(serializer.data)
-
-
-class IncrementStock(APIView):
-    def get_object(self, tig_id):
-        try:
-            return InfoProduct.objects.get(tig_id=tig_id)
-        except InfoProduct.DoesNotExist:
-            raise Http404
-
-    def get(self, request, tig_id, number, format=None):
-        product = self.get_object(tig_id=tig_id)
-        product.quantityInStock += number
-        product.save()
-        
-        serializer = InfoProductSerializer(product)
-        return Response(serializer.data)
-
-class DecrementStock(APIView):
-    def get_object(self, tig_id):
-        try:
-            return InfoProduct.objects.get(tig_id=tig_id)
-        except InfoProduct.DoesNotExist:
-            raise Http404
-
-    def get(self, request, tig_id, number, vente, format=None):
-        product = self.get_object(tig_id=tig_id)
-        product.quantityInStock -= number
-        if vente == 1:
-            product.quantitySold += number
-
-        if product.quantityInStock < 0:
-            product.quantityInStock = 0
-
-        product.save()
-
-        serializer = InfoProductSerializer(product)
-        return Response(serializer.data)
-
-    
 class IncrementAndReturnStock(APIView):
     def get_object(self, tig_id):
         try:
@@ -187,6 +122,13 @@ class ListTransaction(APIView):
         serializer = DonneeHistoSerializer(donnees, many=True)
         return Response(serializer.data)
 
+    def post(self, request, format=None):
+        serializer = DonneeHistoSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 class DetailTransaction(APIView):
     def get_object(self, id):
         try:
@@ -202,19 +144,3 @@ class DetailTransaction(APIView):
         snippet = self.get_object(id)
         snippet.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
-class AddTransaction(APIView):
-    def get(self, request, nom, type, prixT, quantité, category, id, format=None):
-        product = InfoProduct.objects.get(tig_id=id)
-        if product.quantityInStock == 0:
-            return Response(status=status.HTTP_204_NO_CONTENT)
-        serializer = DonneeHistoSerializer(data={
-                                                     'nameProd': nom,
-                                                     'typeT': type,
-                                                     'valeurT': prixT,
-                                                     'quantityT': quantité,
-                                                     'category': category
-                                                })
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
