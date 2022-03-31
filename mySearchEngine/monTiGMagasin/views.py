@@ -20,12 +20,12 @@ class InfoProductDetail(APIView):
         except InfoProduct.DoesNotExist:
             raise Http404
     def get(self, request, tig_id, format=None):
-        product = self.get_object(tig_id==tig_id)
+        product = self.get_object(tig_id)
         serializer = InfoProductSerializer(product)
         return Response(serializer.data)
 
     def put(self, request, tig_id, format=None):
-        product = self.get_object(tig_id==tig_id)
+        product = self.get_object(tig_id)
         serializer = InfoProductSerializer(product, data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -40,7 +40,7 @@ class IncrementAndReturnStock(APIView):
             raise Http404
 
     def get(self, request, tig_id, number, format=None):
-        product = self.get_object(tig_id=tig_id)
+        product = self.get_object(tig_id)
         product.quantityInStock += number
         product.save()
 
@@ -57,7 +57,7 @@ class DecrementAndReturnStock(APIView):
             raise Http404
 
     def get(self, request, tig_id, number, vente, format=None):
-        product = self.get_object(tig_id=tig_id)
+        product = self.get_object(tig_id)
         if product.quantityInStock - number < 0:
             products = InfoProduct.objects.all()
             serializer = InfoProductSerializer(products, many=True)
@@ -85,7 +85,7 @@ class PutOnSaleAndReturn(APIView):
             raise Http404
 
     def get(self, request, tig_id, newpromo, format=None):
-        product = self.get_object(tig_id=tig_id)
+        product = self.get_object(tig_id)
         product.sale = True
         product.percentage_reduc = newpromo
         product.discount = round(product.price * (1 - product.percentage_reduc / 100), 2)
@@ -104,7 +104,7 @@ class RemoveOnSaleAndReturn(APIView):
             raise Http404
 
     def get(self, request, tig_id, format=None):
-        product = self.get_object(tig_id=tig_id)
+        product = self.get_object(tig_id)
         product.sale = False
         product.percentage_reduc = 0
         product.discount = 0
