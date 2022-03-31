@@ -9,7 +9,7 @@ source env/bin/activate
 ```
 Ou vous pouvez créer votre propre environnement et installer les package suivants.
 
-``bash
+```bash
 python3 -m venv env
 source env/bin/activate
 pip install django djangorestframework django-cors-headers zappa
